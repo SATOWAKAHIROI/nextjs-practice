@@ -10,7 +10,9 @@ export async function DELETE(request, context) {
 
     try{
         await connectDB();
-        const singleItem = ItemModel.findById(id);
+        const singleItem = await ItemModel.findById(id);
+        console.log(singleItem);
+        console.log(singleItem.email, reqBody.email);
         if(singleItem.email === reqBody.email){
             await ItemModel.deleteOne({_id: id});
             return NextResponse.json({message: "削除成功"});
